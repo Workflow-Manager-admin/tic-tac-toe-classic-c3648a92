@@ -1,104 +1,210 @@
-/* CSS Variables for Theme Management */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  /* Provided and project-specific theme colors */
+  --ttt-primary: #1976D2;
+  --ttt-secondary: #424242;
+  --ttt-accent: #FFA000;
+  --ttt-border: #e9ecef;
+  --ttt-board-bg: #fff;
+  --ttt-cell-hover: #FFA00033;
+  --ttt-cell-highlight: #FFA00011;
+  --ttt-text: #222;
+  --ttt-winner: #FFA000;
+  --ttt-draw: #1976D2;
+  --ttt-control-bg: #f8f9fa;
+  --ttt-disabled: #bdbdbd;
 }
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
-}
-
+/* Layout and centering */
 .App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
+  background: #fff;
+  color: var(--ttt-text);
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: "Segoe UI", "Roboto", Arial, sans-serif;
+  justify-content: flex-start;
+}
+
+.ttt-header {
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 18px;
+}
+.ttt-title {
+  font-size: 2.3em;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+  color: var(--ttt-primary);
+  margin: 0;
+}
+.ttt-subtitle {
+  color: var(--ttt-secondary);
+  font-weight: 500;
+  font-size: 1.08em;
+  letter-spacing: 1px;
+  margin: 0 0 12px 0;
+  opacity: 0.76;
+}
+
+/* Board styles */
+.ttt-center {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
+  align-items: flex-start;
+}
+.ttt-board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--ttt-board-bg);
+  border-radius: 18px;
+  box-shadow: 0 8px 30px #ECECEC31;
+  padding: 20px 28px 18px 28px;
+  margin-bottom: 20px;
+}
+.ttt-row {
+  display: flex;
+}
+.ttt-cell {
+  width: 74px;
+  height: 74px;
+  font-size: 2.5rem;
+  background: var(--ttt-board-bg);
+  border: 2.5px solid var(--ttt-border);
+  border-radius: 13px;
+  margin: 6px;
+  cursor: pointer;
+  outline: none;
+  transition: background 0.16s, color 0.2s, box-shadow 0.18s;
+  font-family: inherit;
+  color: var(--ttt-text);
   position: relative;
 }
-
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+.ttt-cell:not(:disabled):hover {
+  background: var(--ttt-cell-hover);
+  z-index: 3;
+  transition: background 0.15s;
+}
+.ttt-cell[disabled] {
+  color: var(--ttt-disabled);
+  cursor: not-allowed;
+  opacity: 0.62;
+  background: #f7f7f7;
+}
+.ttt-cell {
+  box-shadow: 0 1.5px 4px #e0e0e026;
 }
 
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 600;
+/* Controls section */
+.ttt-controls {
+  margin: 0 auto;
+  padding: 16px 0 18px 0;
+  background: var(--ttt-control-bg);
+  border-radius: 14px;
+  min-width: 260px;
+  box-shadow: 0 4px 16px #ececec22;
+  text-align: center;
+}
+
+/* Symbol selection */
+.ttt-select {
+  margin-bottom: 10px;
+}
+.ttt-select-label {
+  margin-bottom: 9px;
+  font-weight: 500;
+  color: var(--ttt-secondary);
+}
+.ttt-select-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.ttt-btn {
+  font-size: 1.24em;
+  font-family: inherit;
+  font-weight: 700;
+  border-radius: 9px;
+  padding: 9px 24px;
+  border: 2.3px solid;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0 6px;
+  transition: background 0.18s, color 0.15s, border 0.16s, box-shadow 0.18s;
+  outline: none;
+}
+.ttt-btn-primary {
+  background: var(--ttt-accent);
+  color: #fff;
+  border-color: var(--ttt-accent);
+  margin-top: 10px;
+}
+.ttt-btn-primary:hover {
+  background: #fb8c00;
+  border-color: #fb8c00;
+}
+.ttt-btn-accent {
+  background: var(--ttt-accent);
+  color: #fff;
+  border-color: var(--ttt-accent);
+}
+.ttt-btn-accent:hover {
+  background: #ffd54f;
+  color: #1976D2;
+}
+.ttt-btn-outline {
+  background: #fff;
+  color: var(--ttt-primary);
+  border-color: var(--ttt-primary);
+}
+.ttt-btn-outline:hover {
+  background: #1976D2;
+  color: #fff;
+  border-color: #1976D2;
+}
+.ttt-btn:disabled,
+.ttt-btn[disabled] {
+  background: #e0e0e066;
+  border-color: var(--ttt-disabled);
+  color: var(--ttt-disabled) !important;
+  cursor: not-allowed;
+  opacity: 0.8;
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+/* Status area */
+.ttt-status {
+  font-size: 1.17em;
+  margin: 16px 0 10px 0;
+  min-height: 25px;
+  font-weight: 600;
+  letter-spacing: 0.7px;
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Responsive design */
+@media (max-width: 700px) {
+  .ttt-cell {
+    width: 54px;
+    height: 54px;
+    font-size: 2rem;
+    margin: 5px;
   }
-  to {
-    transform: rotate(360deg);
+  .ttt-board {
+    padding: 12px 4vw 9px 4vw;
+  }
+  .ttt-controls {
+    min-width: 220px;
+    padding: 12px 0;
   }
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
+@media (max-width: 400px) {
+  .ttt-cell {
+    width: 38px;
+    height: 38px;
+    font-size: 1.14rem;
+  }
+  .ttt-title {
+    font-size: 1.18em;
   }
 }
